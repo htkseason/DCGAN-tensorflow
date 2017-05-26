@@ -2,10 +2,9 @@
 import tensorflow as tf
 import numpy
 import math
-from tfoo import *
+from tfobjs import *
 
 class Gnet:
-    
 
     def __init__(self, input_tensor, is_training):
          

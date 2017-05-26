@@ -19,6 +19,7 @@ data_dir = 'e:/CelebA/Img/img_align_celeba/'
 tfrecord_dir = 'e:/CelebA/Img/img_tfrecord/'
 packages = 20
 
+
 def generate_tfrecord():
     sess = tf.InteractiveSession()
     sess.run(tf.global_variables_initializer())

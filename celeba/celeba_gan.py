@@ -8,7 +8,7 @@ from tensorflow.python.framework.ops import GraphKeys
 from tensorflow.python.framework.ops import convert_to_tensor
 from discriminator import Dnet
 from generator import Gnet
-from tfoo import *
+
 
 record_log = True
 record_log_dir = './log/dcgan/'
