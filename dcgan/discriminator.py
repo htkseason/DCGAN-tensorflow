@@ -2,7 +2,7 @@
 import tensorflow as tf
 import numpy
 import math
-from tfobjs import *
+from dcgan.tfobjs import *
 
 class Dnet:
     

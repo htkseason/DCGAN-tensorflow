@@ -55,6 +55,7 @@ class ConvObj(object):
                         tf.summary.histogram('logit', self.logit)]
         return self.logit
     
+        
     def batch_norm(self, tensor, is_training):
         self.bn_obj = BnObj(tensor.shape.as_list()[1:], is_conv=True)
         self.bn = tf.cond(is_training, lambda: self.bn_obj.batch_norm(tensor, True), lambda: self.bn_obj.batch_norm(tensor, False)) 

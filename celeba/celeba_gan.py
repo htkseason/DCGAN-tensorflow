@@ -6,11 +6,11 @@ import os
 import matplotlib.pyplot as plt
 from tensorflow.python.framework.ops import GraphKeys
 from tensorflow.python.framework.ops import convert_to_tensor
-from discriminator import Dnet
-from generator import Gnet
+from dcgan.discriminator import Dnet
+from dcgan.generator import Gnet
 
 
-record_log = True
+record_log = False
 record_log_dir = './log/dcgan/'
 
 
