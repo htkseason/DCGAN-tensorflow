@@ -1,13 +1,14 @@
 import time
 import tensorflow as tf
 import numpy
-import celeba_input
 import os
 import matplotlib.pyplot as plt
 from tensorflow.python.framework.ops import GraphKeys
 from tensorflow.python.framework.ops import convert_to_tensor
+
 from dcgan.discriminator import Dnet
 from dcgan.generator import Gnet
+from celeba import celeba_input
 
 
 record_log = False
