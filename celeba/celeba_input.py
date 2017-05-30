@@ -57,7 +57,6 @@ def inputs(batch_size):
                                        })
     image = tf.decode_raw(features['img_raw'], tf.uint8)
     image = tf.cast(tf.reshape(image, [64, 64, 3]), tf.float32)
-    image = image / 127.5 - 1.0
     return tf.train.shuffle_batch(
             [image],
             batch_size=batch_size,

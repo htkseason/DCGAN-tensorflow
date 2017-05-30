@@ -11,7 +11,7 @@ from dcgan.generator import Gnet
 from celeba import celeba_input
 
 
-record_log = False
+record_log = True
 record_log_dir = './log/dcgan/'
 
 
@@ -27,7 +27,7 @@ config.gpu_options.allow_growth = True
 
 
 
-image64 = celeba_input.inputs(64)
+image64 = celeba_input.inputs(64) / 127.5 - 1.0
 ones64 = tf.ones([64, 1], dtype=tf.int32)
 random64 = tf.random_uniform([64, 100], -1, 1, tf.float32, name='input_noise')
 zeros64 = tf.zeros([64, 1], dtype=tf.int32)
@@ -44,9 +44,8 @@ with tf.variable_scope('dnet', reuse=True):
     dgnet = Dnet(gnet.layer5.output, is_training)
 
 
-
 with tf.variable_scope('loss'):
-    weight_loss = tf.reduce_sum(tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES))
+    weight_loss = tf.reduce_mean(tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES))
     cross_entropy_d = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=dnet.layer5.logit, labels=tf.cast(ones64, tf.float32))) + \
                     tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=dgnet.layer5.logit, labels=tf.cast(zeros64, tf.float32)))
     cross_entropy_g = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=dgnet.layer5.logit, labels=tf.cast(ones64, tf.float32)))
@@ -67,7 +66,7 @@ sess.run(tf.global_variables_initializer())
 tf.train.start_queue_runners()
 
 # ===================
-merged = tf.summary.merge([summary_losses,tf.summary.image('gnet_image', gnet.layer5.output, 32)])
+merged = tf.summary.merge([summary_losses, tf.summary.image('gnet_image', gnet.layer5.output, 32)])
 
 
 if record_log:
@@ -77,7 +76,7 @@ if record_log:
 saver = tf.train.Saver()
 
 # ========restore===============
-#saver.restore(sess, tf.train.get_checkpoint_state(record_log_dir).model_checkpoint_path)
+# saver.restore(sess, tf.train.get_checkpoint_state(record_log_dir).model_checkpoint_path)
 # tf.train.write_graph(sess.graph_def, "./log/", "graph.pb", as_text=True);
 
 # builder = tf.saved_model.builder.SavedModelBuilder("./saved_model")
